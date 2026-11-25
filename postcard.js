@@ -16,10 +16,11 @@ function wrapText(ctx, value, maximum) {
   return result;
 }
 function star(ctx, x, y, r, color) { ctx.fillStyle = color; ctx.beginPath(); for (let i = 0; i < 8; i++) { const a = i / 8 * Math.PI * 2, length = i % 2 ? r * .23 : r; const xx = x + Math.cos(a) * length, yy = y + Math.sin(a) * length; if (!i) ctx.moveTo(xx, yy); else ctx.lineTo(xx, yy); } ctx.closePath(); ctx.fill(); }
-export async function renderPostcard(scene, card) {
-  const art = await scene.capture(810, 1080);
-  const canvas = document.createElement('canvas'); canvas.width = 1800; canvas.height = 1200;
-  const ctx = canvas.getContext('2d');
+export async function renderPostcardCanvas(scene, card, options = {}) {
+  const width = options.width || 1800, height = options.height || 1200;
+  const art = await scene.capture(Math.round(810 * width / 1800), Math.round(1080 * height / 1200), options);
+  const canvas = document.createElement('canvas'); canvas.width = width; canvas.height = height;
+  const ctx = canvas.getContext('2d'); ctx.scale(width / 1800, height / 1200);
   ctx.fillStyle = '#fcf7ed'; ctx.fillRect(0, 0, 1800, 1200);
   ctx.strokeStyle = '#d2c3a2'; ctx.lineWidth = 2; ctx.strokeRect(36, 36, 1728, 1128);
   ctx.strokeStyle = '#e2d8c1'; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(815, 148); ctx.lineTo(815, 1054); ctx.stroke();
@@ -38,6 +39,10 @@ export async function renderPostcard(scene, card) {
   ctx.fillStyle = '#2d4737'; lines.forEach((line, i) => ctx.fillText(line, 878, 621 + i * size * 1.45));
   const sender = card.from.trim() ? 'With love, ' + card.from.trim() : 'With a little Christmas love';
   ctx.fillStyle = '#6a765e'; ctx.font = 'italic 27px Georgia'; wrapText(ctx, sender, 735).slice(0, 2).forEach((line, i) => ctx.fillText(line, 878, 1050 + i * 35));
+  return canvas;
+}
+export async function renderPostcard(scene, card) {
+  const canvas = await renderPostcardCanvas(scene, card);
   const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
   if (!blob) throw new Error('Postcard export failed');
   return { canvas, blob };

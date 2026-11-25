@@ -1,9 +1,11 @@
 # Our Tree
 
-**[Decorate your tree and make a postcard](https://ayushiux.github.io/our-tree/)**
+**[Make a Christmas postcard](https://ayushiux.github.io/our-tree/)**
 
-Pick ornaments, colors and sizes, then click or tap a branch. Tap an existing ornament to remove it, or use Undo. Add a greeting, recipient and sender. Preview and download your decorated tree as an 1800x1200 PNG postcard.
+Decorate a 3D Christmas tree. Drag to rotate it, switch on gentle sparkles and choose your main star shape and color. Tap a branch to add an ornament; tap an ornament to remove it, or use Undo.
 
-Your draft stays in browser local storage. There are no shared trees, accounts or backend services. Only you send the downloaded postcard. Native file sharing is offered when the browser supports it.
+Add a recipient, greeting and sender. Make a postcard, then choose Still PNG (1800x1200) or Animated GIF (900x600, an eight-second rotating loop). Download and send it yourself. Native file sharing is offered on supported browsers.
 
-Keyboard arrows and Enter can place ornaments. Responsive layout and reduced-motion preferences are supported. Includes Three.js under MIT, with its license in vendor/THREE-LICENSE.txt.
+Drafts and postcard generation stay in your browser. No accounts, shared access, backend or paid APIs. Reduced motion is respected for the editing view; GIF generation is an explicit choice.
+
+Includes Three.js and gifenc under MIT. See vendor/THREE-LICENSE.txt and vendor/GIFENC-LICENSE.md.
